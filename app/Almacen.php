@@ -20,4 +20,9 @@ class Almacen extends Model
     {
         return $this->belongsTo('App\Local', 'idfSucursal');
     }
+
+    public  function dtalmacen()
+    {
+    	return $this->hasMany('App\Dtalmacen', 'iddtAlmacen');
+    }
 }

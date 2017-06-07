@@ -203,11 +203,16 @@
         <div class="pull-right hidden-xs">
           <b></b> 
         </div>
+
+         <script src="\js\numeral.js"></script>
+    
+    <script src="{{asset('js/modernizr-custom.js')}}"></script>
        <!-- <strong>Copyright &copy; 2015-2020 <a href="www.incanatoit.com">IncanatoIT</a>.</strong> All rights reserved.
       </footer>
 
       
     <!-- jQuery 2.1.4 -->
+     @stack('scripts')
     <script src="{{asset('js/jQuery-2.1.4.min.js')}}"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="{{asset('js/bootstrap.min.js')}}"></script>

@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::resource('productos','ControladorProducto');
 Route::resource('almacen','ControladorAlmacen');
 Route::resource('usuarios','ControladorUsuario');
 Route::resource('local','ControladorLocal');
@@ -23,3 +24,4 @@ Route::get('/', function () {
 Route::bind('local', function ($idSucursal){
 	return App\Local::where('idSucursal', $idSucursal)->first();
 });
+

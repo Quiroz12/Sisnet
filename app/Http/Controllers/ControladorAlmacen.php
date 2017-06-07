@@ -69,9 +69,9 @@ class ControladorAlmacen extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit(Almacen $almacen)
+    {		$loc=Local::All();
+         return view("almacen.editAlm",compact('almacen','loc'));
     }
 
     /**
@@ -81,9 +81,13 @@ class ControladorAlmacen extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(AlmacenRequest $request, $idAlmacen)
+    {	
+    	 $almacen= Almacen::find($idAlmacen);
+        $almacen->fill($request->all());
+        $almacen->save();
+            Session::flash('message','Almacen Actualizado Correctamente');
+       return Redirect::to('/almacen');
     }
 
     /**
