@@ -73,13 +73,13 @@
 </select>
                                 @if ($errors->has('idSucursal'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('idSucursal') }}</strong>
+                                        <strong>{{ $errors->first('idSucursal') }} El usuario debe pertenecer a una Sucursal, Agregue primero una Sucursal</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
-                         <div class="form-group{{ $errors->has('turno') ? ' has-error' : '' }}">
+                         <div class="form-group{{ $errors->has('turno') ? ' has-error' : '' }} ">
                             <label for="turno" class="col-md-4 control-label">Turno</label>
 
                             <div class="col-md-6">

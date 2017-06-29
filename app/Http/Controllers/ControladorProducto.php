@@ -11,6 +11,7 @@ use App\Dtalmacen;
 use App\Almacen;
 use Session;
 use Redirect;
+use DB;
 
 
 class ControladorProducto extends Controller
@@ -58,7 +59,7 @@ class ControladorProducto extends Controller
          Dtalmacen::create([
             'idProducto'=>$request['idProducto'],
             'idAlmacen'=>$request['idAlmacen'],
-            'stock'=>$request['stock'],
+            
         
             ]);
           Session::flash('message','Producto Creado Correctamente');
@@ -93,6 +94,7 @@ class ControladorProducto extends Controller
         $detalm['nombre']=$detalm->productos->nombre;
         $detalm['precio']=$detalm->productos->precio;
         $detalm['descripcion']=$detalm->productos->descripcion;
+         $detalm['stock']=$detalm->productos->stock;
         $detalm['image']=$detalm->productos->image;
         return view('productos.editProd', ['detalm'=>$detalm],compact('almacen'));
     }
@@ -112,7 +114,13 @@ class ControladorProducto extends Controller
         $producto->nombre=$request->get('nombre');
         $producto->precio=$request->get('precio');
         $producto->descripcion=$request->get('descripcion');
-
+        $producto->stock=$request->get('stock');
+        
+         if($request->hasFile('image')){
+        $file=$request->file('image');
+        $file->move(public_path().'/img/productos/',$file->getClientOriginalName());
+        $producto->image=$file->getClientOriginalName();
+                                    }
 
         $producto->update();
  $this->ActualizaStock($idProducto);
@@ -130,7 +138,7 @@ class ControladorProducto extends Controller
         $detalle=Dtalmacen::where('idProducto', $idProducto)->first();
         $detalle->idProducto=Input::get('idProducto');
         $detalle->idAlmacen=Input::get('idAlmacen');
-        $detalle->stock=Input::get('stock');
+      
         
           
              $detalle->save();
@@ -144,8 +152,11 @@ class ControladorProducto extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($idProducto)
     {
-        //
+         $producto=DB::table('producto')->where('idProducto','=',$idProducto)->delete();
+         $dtalmacen=DB::table('Dtalmacen')->where('idProducto','=',$idProducto)->delete();
+         Session::flash('message','Producto Eliminado Correctamente');
+        return Redirect::to('/productos');
     }
 }

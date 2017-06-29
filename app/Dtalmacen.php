@@ -9,7 +9,7 @@ class Dtalmacen extends Model
     protected $table = 'dtalmacen';
 	protected $primaryKey = 'iddtAlmacen';
 
-      protected $fillable = [ 'idProducto', 'idAlmacen', 'stock', 
+      protected $fillable = [ 'idProducto', 'idAlmacen', 
       ];
 
       public  $timestamps= false;

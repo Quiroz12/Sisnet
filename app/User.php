@@ -32,4 +32,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Local', 'idSucursal');
     }
+
+    public  function ventas()
+    {
+        return $this->hasMany('App\Venta', 'idVenta');
+    }
+
+    public function servicios()
+    {
+        return $this->hasMany('App\Servicio','idServicio');
+    }
 }

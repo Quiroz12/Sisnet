@@ -26,17 +26,17 @@
 		<td><img src="{{asset('img/productos/'.$prods->productos->image)}}"alt="{{$prods->productos->nombre}}",height="70px" width="70px", class="img-thumbnail"></td>
 		<td>{{$prods->productos->nombre}}</td>
 		<td>{{$prods->productos->descripcion}}</td>
-		<td>{{$prods->stock}}</td>
+		<td>{{$prods->productos->stock}}</td>
 		<td>{{$prods->productos->precio}}</td>
 		<td>{{$prods->almacen->nombre}}</td>
 		<td>{{$prods->almacen->local->nombre}}</td>
 		<td>
 			<a href="{{URL::action('ControladorProducto@edit',$prods->iddtAlmacen)}}"><button class="btn btn-info">Editar </button></a>
-			<a href="" data-target="#modal-delete-{{$prods->iddtAlmacen}}" data-toggle="modal" data-toggle="modal"><button class="btn btn-danger">Eliminar </button></a>
+			<a href="" data-target="#modal-delete-{{$prods->productos->idProducto}}" data-toggle="modal" data-toggle="modal"><button class="btn btn-danger">Eliminar </button></a>
 		</td>
 
 	</tr>
-		
+		@include('productos.modal')
 	@endforeach
 	</table>
 	</div>

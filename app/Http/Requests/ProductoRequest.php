@@ -24,7 +24,7 @@ class ProductoRequest extends FormRequest
     public function rules()
     {
         return [
-            'idProducto'=>'required|unique:producto|numeric',
+            'idProducto'=>'required|unique:producto',
             'nombre'=>'required',
             'descripcion'=>'required',
             'precio'=>'required|numeric',

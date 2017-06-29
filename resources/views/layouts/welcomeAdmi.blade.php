@@ -5,10 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Sisnet</title>
     <!-- Tell the browser to be responsive to screen width -->
+    {{--CSRF Token--}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+     {{--Scripts--}}
+    <script>
+        window.Laravel = {!! json_encode([
+            'csrfToken' => csrf_token(),
+        ]) !!};
+    </script>
     <!-- Bootstrap 3.3.5 -->
    
-     
+      <link rel="stylesheet" href="{{asset ('css/bootstrap-select.min.css')}}">
      <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('css/font-awesome.css')}}">
@@ -54,30 +63,26 @@
               <!-- Messages: style can be found in dropdown.less-->
               
               <!-- User Account: style can be found in dropdown.less -->
-              <li class="dropdown user user-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <small class="bg-red">Online</small>
-                  <span class="hidden-xs">Usuario</span>
-                </a>
-                <ul class="dropdown-menu">
-                  <!-- User image -->
-                  <li class="user-header">
-                    
-                    <p>
-                      www.incanatoit.com - Desarrollando Software
-                      <small>www.youtube.com/jcarlosad7</small>
-                    </p>
-                  </li>
-                  
-                  <!-- Menu Footer-->
-                  <li class="user-footer">
-                    
-                    <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Cerrar</a>
-                    </div>
-                  </li>
-                </ul>
-              </li>
+               <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    <span class="hidden-xs">Usuario: </span>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="{!!URL::to('/login/cerrar')!!}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
               
             </ul>
           </div>
@@ -101,8 +106,9 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="{!!URL::to('/local')!!}"><i class="fa fa-circle-o"></i>Locales</a></li>
-                <li><a href="{!!URL::to('/almacen')!!}"><i class="fa fa-circle-o"></i> Almacénes</a></li>
+                <li><a href="{!!URL::to('/local')!!}"><i class="fa fa-circle-o"></i>Sucursales</a></li>
+                <li><a href="{!!URL::to('/almacen')!!}"><i class="fa fa-circle-o"></i>Almacénes</a></li>
+                <li><a href="{!!URL::to('/productos')!!}"><i class="fa fa-circle-o"></i>Productos</a></li>
               </ul>
             </li>
             
@@ -113,8 +119,8 @@
                  <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="compras/ingreso"><i class="fa fa-circle-o"></i>Ingresar Servicio</a></li>
-                <li><a href="compras/proveedor"><i class="fa fa-circle-o"></i> Cotizador</a></li>
+                <li><a href="{!!URL::to('/servicios')!!}"><i class="fa fa-circle-o"></i>Ingresar Servicio</a></li>
+                <li><a href="{!!URL::to('/cotizar')!!}"><i class="fa fa-circle-o"></i> Cotizador</a></li>
               </ul>
             </li>
             <li class="treeview">
@@ -124,7 +130,7 @@
                  <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="ventas/venta"><i class="fa fa-circle-o"></i> Ventas</a></li>
+                <li><a href="{!!URL::to('/ventas')!!}"><i class="fa fa-circle-o"></i> Ventas</a></li>
                 <li><a href="ventas/cliente"><i class="fa fa-circle-o"></i>Corte de Caja</a></li>
               </ul>
             </li>
@@ -163,10 +169,10 @@
         
        <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper">
+      <div class="content-wrapper" style="background-color:#f7e8e8">
         
         <!-- Main content -->
-        <section class="content" style="background-color:#f7e8e8">
+        <section class="content" style="background-color:#f7e8e8;">
           
           <div class="row">
             <div class="col-md-12">
@@ -203,18 +209,21 @@
         <div class="pull-right hidden-xs">
           <b></b> 
         </div>
+      </footer>
        <!-- <strong>Copyright &copy; 2015-2020 <a href="www.incanatoit.com">IncanatoIT</a>.</strong> All rights reserved.
       </footer>
 
       
     <!-- jQuery 2.1.4 -->
     
-    <script src="{{asset('js/numeral.js')}}"></script>
+
     <script src="{{asset('js/jquery-3.2.1.js')}}"></script>
+    @stack('scripts')
     <!-- Bootstrap 3.3.5 -->
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
+     <script src="{{asset('js/bootstrap-select.min.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{asset('js/app.min.js')}}"></script>
-    <script src="{{asset('js/vanilla-masker.js')}}"></script>
+  
   </body>
 </html>

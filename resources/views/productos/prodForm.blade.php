@@ -42,8 +42,7 @@
 			{{ Form::textarea('descripcion', null, ['class' => 'form-control ','cols'=>'50','rows'=>'4']) }}
 			
   			
-<br>
-<input readonly type=text name=remLen size=3 maxlength=3 value="0"> Total Caracteres - Maximo 200 caracteres</div>
+</div>
 </div>
 
 <div class="col-lg-12 col-md-12 col-dm-12 col-xs-12">
